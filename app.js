@@ -1,3 +1,4 @@
+require('dotenv').config(); //make sure this line is always at the very top
 const express = require("express");
 const https = require("https");
 const app = express();
@@ -19,9 +20,9 @@ const userSchema = new mongoose.Schema({
   password: String
 });
 
-const secret = "This is the throbbing secret of the werewolf.";
 
-userSchema.plugin(encrypt, {secret: secret, encryptedFields: ['password']});
+
+userSchema.plugin(encrypt, {secret: process.env.SECRET, encryptedFields: ['password']});
 
 const User = new mongoose.model("User", userSchema);
 
